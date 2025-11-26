@@ -1,12 +1,17 @@
 import { pageTitle } from 'ember-page-title';
-import { WelcomePage } from 'ember-welcome-page';
+import Component from '@glimmer/component';
+import Sidebar from '../components/sidebar';
+import PlayBar from '../components/play-bar';
 
-<template>
-  {{pageTitle "MusicPlayer"}}
-
-  {{outlet}}
-
-  {{! The following component displays Ember's default welcome message. }}
-  <WelcomePage />
-  {{! Feel free to remove this! }}
-</template>
+export default class Application extends Component {
+  <template>
+    {{pageTitle "MusicPlayer"}}
+    <div class="app">
+      <Sidebar />
+      <div class="window">
+        {{outlet}}
+      </div>
+      <PlayBar />
+    </div>
+  </template>
+}

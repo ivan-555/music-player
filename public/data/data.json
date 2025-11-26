@@ -1,0 +1,112 @@
+[
+  {
+    "title": "Hells Bells",
+    "artist": "ACDC",
+    "duration": 4.2
+  },
+  {
+    "title": "Nothing Else Matters",
+    "artist": "Metallica",
+    "duration": 4.5
+  },
+  {
+    "title": "Black Dog",
+    "artist": "Led Zeppelin",
+    "duration": 3.2
+  },
+  {
+    "title": "Der Himmel kann warten",
+    "artist": "Böhse Onkelz",
+    "duration": 3.8
+  },
+  {
+    "title": "Enter Sandman",
+    "artist": "Metallica",
+    "duration": 3.7
+  },
+  {
+    "title": "Comfortably Numb",
+    "artist": "Pink Floyd",
+    "duration": 5.1
+  },
+  {
+    "title": "Sweet Child o Mine",
+    "artist": "Guns n Roses",
+    "duration": 4.2
+  },
+  {
+    "title": "Smells Like Teen Spirit",
+    "artist": "Nirvana",
+    "duration": 4.5
+  },
+  {
+    "title": "Whole Lotta Love",
+    "artist": "Led Zeppelin",
+    "duration": 3.7
+  },
+  {
+    "title": "Californication",
+    "artist": "Red Hot Chili Peppers",
+    "duration": 3.5
+  },
+  {
+    "title": "Sharp Dressed Man",
+    "artist": "ZZ Top",
+    "duration": 3.4
+  },
+  {
+    "title": "Livin on a Prayer",
+    "artist": "Bon Jovi",
+    "duration": 4.0
+  },
+  {
+    "title": "Back in Black",
+    "artist": "ACDC",
+    "duration": 4.3
+  },
+  {
+    "title": "November Rain",
+    "artist": "Guns n Roses",
+    "duration": 5.2
+  },
+  {
+    "title": "Highway to Hell",
+    "artist": "ACDC",
+    "duration": 3.6
+  },
+  {
+    "title": "Dream On",
+    "artist": "Aerosmith",
+    "duration": 3.7
+  },
+  {
+    "title": "Paranoid",
+    "artist": "Black Sabbath",
+    "duration": 2.9
+  },
+  {
+    "title": "Enter Sandman",
+    "artist": "Metallica",
+    "duration": 3.7
+  },
+  {
+    "title": "Wish You Were Here",
+    "artist": "Pink Floyd",
+    "duration": 4.6
+  },
+  {
+    "title": "Free Bird",
+    "artist": "Lynyrd Skynyrd",
+    "duration": 5.0
+  },
+  {
+    "title": "Hotel California",
+    "artist": "Eagles",
+    "duration": 6.3
+  },
+  {
+    "title": "Crazy Train",
+    "artist": "Ozzy Osbourne",
+    "duration": 4.1
+  }
+]
