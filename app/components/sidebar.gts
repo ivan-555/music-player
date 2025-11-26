@@ -46,7 +46,7 @@ export default class Sidebar extends Component<SidebarSignature> {
     this['data'].addPlaylist(name);
   };
 
-  get playlists(): string[] {
+  get playlists() {
     return this['data'].playlists;
   }
 

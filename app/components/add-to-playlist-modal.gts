@@ -34,7 +34,7 @@ export default class AddToPlaylistModal extends Component<AddToPlaylistModalSign
     if (this._selectedPlaylist) {
       return this._selectedPlaylist;
     }
-    return this.playlists.length > 0 ? this.playlists[0].name : '';
+    return this.playlists.length > 0 ? this.playlists[0]?.name ?? '' : '';
   }
 
   setSelectedPlaylist = (e: Event) => {

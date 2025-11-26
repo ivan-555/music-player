@@ -22,8 +22,8 @@ export default class DataService extends Service {
 
   @tracked playlists: Playlist[] = [];
 
-  constructor() {
-    super(...arguments);
+  constructor(...args: ConstructorParameters<typeof Service>) {
+    super(...args);
     this.getLocalStoragePlaylists();
   }
 

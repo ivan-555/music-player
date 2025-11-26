@@ -26,6 +26,9 @@ export default class CreatePlaylistModal extends Component<CreatePlaylistModalSi
   }
 
   @action setPlaylistNameInput(e: Event) {
+    if (!(e.target instanceof HTMLInputElement)) {
+      return;
+    }
     this.playlistNameInput = e.target.value;
   }
 
