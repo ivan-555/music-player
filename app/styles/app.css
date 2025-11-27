@@ -270,7 +270,6 @@ a i {
 
 .play-bar .wrapper .infos {
   font-size: 1.1rem;
-  font-weight: bold;
   display: flex;
   gap: 20px;
 }
