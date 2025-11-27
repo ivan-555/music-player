@@ -67,13 +67,20 @@ export default class AddToPlaylistModal extends Component<AddToPlaylistModalSign
     this.args.closeAddToPlaylistModalFn(this.args.song);
   };
 
+  stopPropagation = (event: Event) => {
+    event.stopPropagation();
+  };
+
   <template>
+    {{! template-lint-disable no-invalid-interactive }}
     <div
       class="add-to-playlist-modal {{@class}}"
       {{onClickOutside callback=this.handleClickOutside}}
+      {{on "click" this.stopPropagation}}
     >
       <form>
-        <label for="playlist-select">Select Playlist:</label>
+        <label for="playlist-select" {{on "click" this.stopPropagation}}>Select
+          Playlist:</label>
         <select
           id="playlist-select"
           name="playlist-select"
