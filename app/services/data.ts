@@ -33,8 +33,12 @@ export default class DataService extends Service {
           Math.floor(duration) * 60 +
           Math.round((duration - Math.floor(duration)) * 100);
         if (this.timer >= totalSeconds) {
-          this.playNextSong();
           this.timer = 0;
+          if (this.isRepeating) {
+            this.repeatSong();
+            return;
+          }
+          this.playNextSong();
         }
       }
     }, 1000);
@@ -139,6 +143,16 @@ export default class DataService extends Service {
         s.artist === this.currentlyPlayingSong!.artist
     );
     const nextIndex = (currentIndex + 1) % songs.length;
+    const randomIndex = Math.floor(Math.random() * songs.length);
+    if (this.isShuffling) {
+      const randomSong = songs[randomIndex];
+      if (randomSong) {
+        this.currentlyPlayingSong = randomSong;
+        this.isPlaying = true;
+        this.timer = 0;
+      }
+      return;
+    }
     const nextSong = songs[nextIndex];
     if (nextSong) {
       this.currentlyPlayingSong = nextSong;
@@ -172,9 +186,27 @@ export default class DataService extends Service {
         s.artist === this.currentlyPlayingSong!.artist
     );
     const previousIndex = (currentIndex - 1 + songs.length) % songs.length;
+    const randomIndex = Math.floor(Math.random() * songs.length);
+    if (this.isShuffling) {
+      const randomSong = songs[randomIndex];
+      if (randomSong) {
+        this.currentlyPlayingSong = randomSong;
+        this.isPlaying = true;
+        this.timer = 0;
+      }
+      return;
+    }
     const previousSong = songs[previousIndex];
     if (previousSong) {
       this.currentlyPlayingSong = previousSong;
+    }
+    this.isPlaying = true;
+    this.timer = 0;
+  }
+
+  repeatSong(): void {
+    if (!this.currentlyPlayingSong) {
+      return;
     }
     this.isPlaying = true;
     this.timer = 0;
@@ -201,6 +233,24 @@ export default class DataService extends Service {
   };
 
   @tracked timer: number = 0;
+
+  @tracked isShuffling: boolean = false;
+
+  shuffleSongs = (): void => {
+    if (this.isRepeating) {
+      this.isRepeating = false;
+    }
+    this.isShuffling = !this.isShuffling;
+  };
+
+  @tracked isRepeating: boolean = false;
+
+  toggleRepeat = (): void => {
+    if (this.isShuffling) {
+      this.isShuffling = false;
+    }
+    this.isRepeating = !this.isRepeating;
+  };
 }
 
 declare module '@ember/service' {
