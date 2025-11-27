@@ -7,6 +7,7 @@ import AddToPlaylistModal from './add-to-playlist-modal';
 import { tracked } from '@glimmer/tracking';
 import type RouterService from '@ember/routing/router-service';
 import { and, eq } from 'ember-truth-helpers';
+import { formatDuration } from 'music-player/helpers/format-duration';
 
 export interface PlaylistSignature {
   Args: {
@@ -176,7 +177,7 @@ export default class Playlist extends Component<PlaylistSignature> {
             -
             <span class="song-artist">{{song.artist}}</span>
             -
-            <span class="song-duration">{{song.duration}}s</span>
+            <span class="song-duration">{{formatDuration song.duration}}</span>
             <div class="button-wrapper">
               <button
                 type="button"

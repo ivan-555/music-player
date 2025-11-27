@@ -1,3 +1,8 @@
+/* stylelint-disable order/properties-alphabetical-order */
+/* stylelint-disable function-no-unknown */
+/* stylelint-disable no-descending-specificity */
+/* stylelint-disable color-function-notation */
+
 * {
   padding: 0;
   margin: 0;
@@ -321,6 +326,14 @@ a i {
   opacity: 1;
 }
 
+.play-bar .wrapper .timeline .progress-time {
+  opacity: 0;
+}
+
+.play-bar .wrapper .timeline .progress-time.active {
+  opacity: 1;
+}
+
 .play-bar .wrapper .timeline .line {
   width: 280px;
   height: 4px;
@@ -332,5 +345,5 @@ a i {
   width: 50%;
   height: 100%;
   border-radius: 20px;
-  background: rgb(87 125 177);
+  background: rgb(65, 126, 213);
 }

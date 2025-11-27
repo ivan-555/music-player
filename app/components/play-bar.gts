@@ -4,6 +4,7 @@ import { service } from '@ember/service';
 import type DataService from '../services/data';
 import { on } from '@ember/modifier';
 import { and, eq } from 'ember-truth-helpers';
+import { formatDuration } from 'music-player/helpers/format-duration';
 
 export interface PlayBarSignature {
   Args: {};
@@ -29,7 +30,8 @@ export default class PlayBar extends Component<PlayBarSignature> {
   }
 
   get displayDuration() {
-    return this.currentlyPlayingSong?.duration ?? '---';
+    const duration = this.currentlyPlayingSong?.duration;
+    return duration ? formatDuration(duration) : '---';
   }
 
   playNextSong = () => {
@@ -62,7 +64,9 @@ export default class PlayBar extends Component<PlayBarSignature> {
         </div>
         <div class="timeline">
           <i class="fa-solid fa-music {{if this.isPlaying 'playing'}}"></i>
-          <span>2:20</span>
+          <span
+            class="progress-time {{if this.currentlyPlayingSong 'active'}}"
+          >2:20</span>
           <div class="line">
             <div class="progress"></div>
           </div>
