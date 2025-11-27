@@ -308,6 +308,14 @@ a i {
   border: none;
 }
 
+.play-bar .wrapper .controls .button.shuffle {
+  opacity: 1;
+}
+
+.play-bar .wrapper .controls .button.shuffle.active {
+  background: rgb(65, 126, 213);
+}
+
 .play-bar .wrapper .controls .button.active {
   opacity: 1;
 }

@@ -139,6 +139,16 @@ export default class DataService extends Service {
         s.artist === this.currentlyPlayingSong!.artist
     );
     const nextIndex = (currentIndex + 1) % songs.length;
+    const randomIndex = Math.floor(Math.random() * songs.length);
+    if (this.isShuffling) {
+      const randomSong = songs[randomIndex];
+      if (randomSong) {
+        this.currentlyPlayingSong = randomSong;
+        this.isPlaying = true;
+        this.timer = 0;
+      }
+      return;
+    }
     const nextSong = songs[nextIndex];
     if (nextSong) {
       this.currentlyPlayingSong = nextSong;
@@ -172,6 +182,16 @@ export default class DataService extends Service {
         s.artist === this.currentlyPlayingSong!.artist
     );
     const previousIndex = (currentIndex - 1 + songs.length) % songs.length;
+    const randomIndex = Math.floor(Math.random() * songs.length);
+    if (this.isShuffling) {
+      const randomSong = songs[randomIndex];
+      if (randomSong) {
+        this.currentlyPlayingSong = randomSong;
+        this.isPlaying = true;
+        this.timer = 0;
+      }
+      return;
+    }
     const previousSong = songs[previousIndex];
     if (previousSong) {
       this.currentlyPlayingSong = previousSong;
@@ -201,6 +221,12 @@ export default class DataService extends Service {
   };
 
   @tracked timer: number = 0;
+
+  @tracked isShuffling: boolean = false;
+
+  shuffleSongs = (): void => {
+    this.isShuffling = !this.isShuffling;
+  };
 }
 
 declare module '@ember/service' {
