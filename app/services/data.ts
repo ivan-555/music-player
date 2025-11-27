@@ -25,6 +25,19 @@ export default class DataService extends Service {
   constructor(...args: ConstructorParameters<typeof Service>) {
     super(...args);
     this.getLocalStoragePlaylists();
+    setInterval(() => {
+      this.timer += this.isPlaying ? 1 : 0;
+      if (this.currentlyPlayingSong) {
+        const duration = this.currentlyPlayingSong.duration;
+        const totalSeconds =
+          Math.floor(duration) * 60 +
+          Math.round((duration - Math.floor(duration)) * 100);
+        if (this.timer >= totalSeconds) {
+          this.playNextSong();
+          this.timer = 0;
+        }
+      }
+    }, 1000);
   }
 
   renamePlaylist(oldName: string, newName: string): void {
@@ -94,6 +107,7 @@ export default class DataService extends Service {
   playSong(song: Song): void {
     this.currentlyPlayingSong = song;
     this.isPlaying = true;
+    this.timer = 0;
   }
 
   setCurrentlyPlayingPlaylist(playlistName: string): void {
@@ -109,12 +123,6 @@ export default class DataService extends Service {
 
     if (this.currentlyPlayingPlaylistName === 'Library') {
       songs = this.songs;
-      console.log(
-        'Library songs:',
-        songs.length,
-        'Current song:',
-        this.currentlyPlayingSong.title
-      );
     } else {
       const playlist = this.playlists.find(
         (pl) => pl.name === this.currentlyPlayingPlaylistName
@@ -130,14 +138,13 @@ export default class DataService extends Service {
         s.title === this.currentlyPlayingSong!.title &&
         s.artist === this.currentlyPlayingSong!.artist
     );
-    console.log('Current index:', currentIndex, 'Total songs:', songs.length);
     const nextIndex = (currentIndex + 1) % songs.length;
     const nextSong = songs[nextIndex];
-    console.log('Next song:', nextSong?.title);
     if (nextSong) {
       this.currentlyPlayingSong = nextSong;
     }
     this.isPlaying = true;
+    this.timer = 0;
   }
 
   playPreviousSong(): void {
@@ -170,6 +177,7 @@ export default class DataService extends Service {
       this.currentlyPlayingSong = previousSong;
     }
     this.isPlaying = true;
+    this.timer = 0;
   }
 
   @tracked isPlaying: boolean = false;
@@ -187,6 +195,12 @@ export default class DataService extends Service {
     }
     this.isPlaying = true;
   };
+
+  seekTo = (seconds: number) => {
+    this.timer = seconds;
+  };
+
+  @tracked timer: number = 0;
 }
 
 declare module '@ember/service' {

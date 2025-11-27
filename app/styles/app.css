@@ -339,11 +339,12 @@ a i {
   height: 4px;
   border-radius: 20px;
   background: rgb(161 161 161);
+  cursor: pointer;
 }
 
 .play-bar .wrapper .timeline .line .progress {
-  width: 50%;
   height: 100%;
   border-radius: 20px;
   background: rgb(65, 126, 213);
+  transition: width 0.2s;
 }

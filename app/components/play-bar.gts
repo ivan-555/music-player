@@ -5,6 +5,8 @@ import type DataService from '../services/data';
 import { on } from '@ember/modifier';
 import { and, eq } from 'ember-truth-helpers';
 import { formatDuration } from 'music-player/helpers/format-duration';
+import { formatTime } from 'music-player/helpers/format-time';
+import setWidth from 'music-player/modifiers/set-width';
 
 export interface PlayBarSignature {
   Args: {};
@@ -54,6 +56,37 @@ export default class PlayBar extends Component<PlayBarSignature> {
     return this.data.isPlaying;
   }
 
+  get timer() {
+    return this.data.timer;
+  }
+
+  get progressPercentage() {
+    if (!this.currentlyPlayingSong) {
+      return 0;
+    }
+    const duration = this.currentlyPlayingSong.duration;
+    const totalSeconds =
+      Math.floor(duration) * 60 +
+      Math.round((duration - Math.floor(duration)) * 100);
+    return (this.timer / totalSeconds) * 100;
+  }
+
+  handleProgressBarClick = (event: MouseEvent) => {
+    if (!this.currentlyPlayingSong) {
+      return;
+    }
+    const target = event.currentTarget as HTMLElement;
+    const rect = target.getBoundingClientRect();
+    const clickX = event.clientX - rect.left;
+    const percentage = clickX / rect.width;
+    const duration = this.currentlyPlayingSong.duration;
+    const totalSeconds =
+      Math.floor(duration) * 60 +
+      Math.round((duration - Math.floor(duration)) * 100);
+    const newTime = Math.floor(percentage * totalSeconds);
+    this.data.seekTo(newTime);
+  };
+
   <template>
     <div class="play-bar">
       <div class="wrapper">
@@ -66,9 +99,13 @@ export default class PlayBar extends Component<PlayBarSignature> {
           <i class="fa-solid fa-music {{if this.isPlaying 'playing'}}"></i>
           <span
             class="progress-time {{if this.currentlyPlayingSong 'active'}}"
-          >2:20</span>
-          <div class="line">
-            <div class="progress"></div>
+          >{{formatTime this.timer}}</span>
+          {{! template-lint-disable no-invalid-interactive }}
+          <div class="line" {{on "click" this.handleProgressBarClick}}>
+            <div
+              class="progress"
+              {{setWidth percentage=this.progressPercentage}}
+            ></div>
           </div>
           <span class="song-duration">{{this.displayDuration}}</span>
         </div>
