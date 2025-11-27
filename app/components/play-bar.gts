@@ -24,16 +24,16 @@ export default class PlayBar extends Component<PlayBarSignature> {
   }
 
   get displayTitle() {
-    return this.currentlyPlayingSong?.title ?? '---';
+    return this.currentlyPlayingSong?.title ?? '';
   }
 
   get displayArtist() {
-    return this.currentlyPlayingSong?.artist ?? '---';
+    return this.currentlyPlayingSong?.artist ?? '';
   }
 
   get displayDuration() {
     const duration = this.currentlyPlayingSong?.duration;
-    return duration ? formatDuration(duration) : '---';
+    return duration ? formatDuration(duration) : '';
   }
 
   playNextSong = () => {

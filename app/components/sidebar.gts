@@ -52,8 +52,13 @@ export default class Sidebar extends Component<SidebarSignature> {
 
   <template>
     <div class="sidebar">
-      <LinkTo @route="index"><i class="fa-solid fa-house"></i> Home</LinkTo>
-      <LinkTo @route="library"><i class="fa-solid fa-database"></i>
+      <LinkTo @route="index" @activeClass="active"><i
+          class="fa-solid fa-house"
+        ></i>
+        Home</LinkTo>
+      <LinkTo @route="library" @activeClass="active"><i
+          class="fa-solid fa-database"
+        ></i>
         Library</LinkTo>
       <div class="create-playlist-wrapper">
         <button
@@ -71,9 +76,11 @@ export default class Sidebar extends Component<SidebarSignature> {
         <span>Playlists:</span>
         {{#each this.playlists as |playlist|}}
           <li>
-            <LinkTo @route="playlists" @model={{playlist.name}}><i
-                class="fa-solid fa-headphones"
-              ></i>
+            <LinkTo
+              @route="playlists"
+              @model={{playlist.name}}
+              @activeClass="active"
+            ><i class="fa-solid fa-headphones"></i>
               {{playlist.name}}</LinkTo>
           </li>
         {{/each}}

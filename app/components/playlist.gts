@@ -195,7 +195,7 @@ export default class Playlist extends Component<PlaylistSignature> {
                 type="button"
                 {{on "click" (fn this.toggleAddToPlaylistModal song)}}
                 class="add-btn"
-              >+ add to a playlist</button>
+              >+ add to playlist</button>
               <AddToPlaylistModal
                 @addSongToPlaylistFn={{this.addSongToPlaylist}}
                 @song={{song}}
