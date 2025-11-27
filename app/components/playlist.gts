@@ -137,6 +137,15 @@ export default class Playlist extends Component<PlaylistSignature> {
     return this.data.isPlaying;
   }
 
+  playPlaylist = (playlistName: string) => {
+    const songs = this.args.songs;
+    const firstSong = songs[0];
+    if (firstSong) {
+      this.playSong(firstSong);
+      this.setCurrentlyPlayingPlaylist(playlistName);
+    }
+  };
+
   <template>
     <div class="playlist">
       <div class="heading">
@@ -147,6 +156,9 @@ export default class Playlist extends Component<PlaylistSignature> {
           value="{{@name}}"
           {{on "blur" this.handleBlur}}
         />
+        <button type="button" {{on "click" (fn this.playPlaylist @name)}}>
+          <i class="fa-solid fa-circle-play"></i>
+        </button>
         {{#if @editablePlaylist}}
           <label for="playlist-name-input" {{on "click" this.enableInput}}>
             <i class="fa-solid fa-pencil"></i>
