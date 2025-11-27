@@ -1,13 +1,11 @@
 import Component from '@glimmer/component';
+import bolden from '../modifiers/bolden';
 
 export interface PlayBarSignature {
-  // The arguments accepted by the component
   Args: {};
-  // Any blocks yielded by the component
   Blocks: {
     default: [];
   };
-  // The element to which `...attributes` is applied in the component template
   Element: null;
 }
 
@@ -15,7 +13,7 @@ export default class PlayBar extends Component<PlayBarSignature> {
   <template>
     <div class="play-bar">
       <div class="wrapper">
-        <div class="infos">
+        <div class="infos" {{bolden}}>
           <span class="song-title">Song Title</span>
           <span class="song-artist">Artist Name</span>
           <span class="song-duration">0:00</span>
