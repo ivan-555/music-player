@@ -316,6 +316,14 @@ a i {
   background: rgb(65, 126, 213);
 }
 
+.play-bar .wrapper .controls .button.repeat {
+  opacity: 1;
+}
+
+.play-bar .wrapper .controls .button.repeat.active {
+  background: rgb(65, 126, 213);
+}
+
 .play-bar .wrapper .controls .button.active {
   opacity: 1;
 }

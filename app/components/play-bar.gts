@@ -95,6 +95,14 @@ export default class PlayBar extends Component<PlayBarSignature> {
     this.data.shuffleSongs();
   };
 
+  get isRepeating() {
+    return this.data.isRepeating;
+  }
+
+  toggleRepeat = () => {
+    this.data.toggleRepeat();
+  };
+
   <template>
     <div class="play-bar">
       <div class="wrapper">
@@ -148,6 +156,13 @@ export default class PlayBar extends Component<PlayBarSignature> {
             {{on "click" this.shuffleSongs}}
           >
             <i class="fa-solid fa-shuffle"></i>
+          </button>
+          <button
+            type="button"
+            class="repeat button {{if this.isRepeating 'active'}}"
+            {{on "click" this.toggleRepeat}}
+          >
+            <i class="fa-solid fa-rotate-left"></i>
           </button>
         </div>
       </div>

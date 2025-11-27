@@ -33,8 +33,12 @@ export default class DataService extends Service {
           Math.floor(duration) * 60 +
           Math.round((duration - Math.floor(duration)) * 100);
         if (this.timer >= totalSeconds) {
-          this.playNextSong();
           this.timer = 0;
+          if (this.isRepeating) {
+            this.repeatSong();
+            return;
+          }
+          this.playNextSong();
         }
       }
     }, 1000);
@@ -200,6 +204,14 @@ export default class DataService extends Service {
     this.timer = 0;
   }
 
+  repeatSong(): void {
+    if (!this.currentlyPlayingSong) {
+      return;
+    }
+    this.isPlaying = true;
+    this.timer = 0;
+  }
+
   @tracked isPlaying: boolean = false;
 
   pauseSong = () => {
@@ -225,7 +237,19 @@ export default class DataService extends Service {
   @tracked isShuffling: boolean = false;
 
   shuffleSongs = (): void => {
+    if (this.isRepeating) {
+      this.isRepeating = false;
+    }
     this.isShuffling = !this.isShuffling;
+  };
+
+  @tracked isRepeating: boolean = false;
+
+  toggleRepeat = (): void => {
+    if (this.isShuffling) {
+      this.isShuffling = false;
+    }
+    this.isRepeating = !this.isRepeating;
   };
 }
 
