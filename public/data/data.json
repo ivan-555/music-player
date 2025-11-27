@@ -17,12 +17,7 @@
   {
     "title": "Der Himmel kann warten",
     "artist": "Böhse Onkelz",
-    "duration": 3.8
-  },
-  {
-    "title": "Enter Sandman",
-    "artist": "Metallica",
-    "duration": 3.7
+    "duration": 3.4
   },
   {
     "title": "Comfortably Numb",
@@ -42,7 +37,7 @@
   {
     "title": "Whole Lotta Love",
     "artist": "Led Zeppelin",
-    "duration": 3.7
+    "duration": 3.2
   },
   {
     "title": "Californication",
@@ -72,27 +67,27 @@
   {
     "title": "Highway to Hell",
     "artist": "ACDC",
-    "duration": 3.6
+    "duration": 3.1
   },
   {
     "title": "Dream On",
     "artist": "Aerosmith",
-    "duration": 3.7
+    "duration": 3.3
   },
   {
     "title": "Paranoid",
     "artist": "Black Sabbath",
-    "duration": 2.9
+    "duration": 2.1
   },
   {
     "title": "Enter Sandman",
     "artist": "Metallica",
-    "duration": 3.7
+    "duration": 3.4
   },
   {
     "title": "Wish You Were Here",
     "artist": "Pink Floyd",
-    "duration": 4.6
+    "duration": 4.2
   },
   {
     "title": "Free Bird",

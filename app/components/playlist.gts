@@ -6,6 +6,7 @@ import { fn } from '@ember/helper';
 import AddToPlaylistModal from './add-to-playlist-modal';
 import { tracked } from '@glimmer/tracking';
 import type RouterService from '@ember/routing/router-service';
+import { and, eq } from 'ember-truth-helpers';
 
 export interface PlaylistSignature {
   Args: {
@@ -91,6 +92,50 @@ export default class Playlist extends Component<PlaylistSignature> {
     }
   };
 
+  playSong = (song: Song) => {
+    this.data.playSong(song);
+  };
+
+  get currentlyPlayingSong() {
+    return this.data.currentlyPlayingSong;
+  }
+
+  isCurrentlyPlayingSong = (song: Song): boolean => {
+    if (!this.currentlyPlayingSong) {
+      return false;
+    }
+    const isSameSong =
+      this.currentlyPlayingSong.title === song.title &&
+      this.currentlyPlayingSong.artist === song.artist;
+
+    // Wenn keine Playlist gesetzt ist, zeige den Song trotzdem an
+    if (!this.data.currentlyPlayingPlaylistName) {
+      return isSameSong;
+    }
+
+    const isSamePlaylist =
+      this.data.currentlyPlayingPlaylistName === this.args.name;
+    return isSameSong && isSamePlaylist;
+  };
+
+  get currentlyPlayingPlaylist() {
+    return this.data.currentlyPlayingPlaylistName;
+  }
+
+  setCurrentlyPlayingPlaylist = (playlistName: string) => {
+    this.data.setCurrentlyPlayingPlaylist(playlistName);
+  };
+
+  handleSongClick = (song: Song, event: Event) => {
+    event.stopPropagation();
+    this.playSong(song);
+    this.setCurrentlyPlayingPlaylist(this.args.name);
+  };
+
+  get isPlaying() {
+    return this.data.isPlaying;
+  }
+
   <template>
     <div class="playlist">
       <div class="heading">
@@ -112,7 +157,21 @@ export default class Playlist extends Component<PlaylistSignature> {
       </div>
       <ul class="song-list">
         {{#each @songs as |song|}}
-          <li class="song-item">
+          {{! template-lint-disable no-invalid-interactive }}
+          <li
+            class="song-item
+              {{if (this.isCurrentlyPlayingSong song) 'playing'}}"
+            {{on "click" (fn this.handleSongClick song)}}
+          >
+            <i
+              class="fa-solid fa-music
+                {{if
+                  (and
+                    (eq this.isPlaying true) (this.isCurrentlyPlayingSong song)
+                  )
+                  'playing'
+                }}"
+            ></i>
             <span class="song-title">{{song.title}}</span>
             -
             <span class="song-artist">{{song.artist}}</span>

@@ -64,7 +64,7 @@ export default class DataService extends Service {
     this.playlists = this.playlists.map((playlist) => {
       if (playlist.name === playlistName) {
         if (playlist.songs.find((s) => s.title === song.title)) {
-          return playlist; // Song already in playlist, do not add
+          return playlist;
         }
         return { ...playlist, songs: [...playlist.songs, song] };
       }
@@ -84,7 +84,109 @@ export default class DataService extends Service {
       return playlist;
     });
     this.setLocalStoragePlaylists();
+    this.pauseSong();
+    this.currentlyPlayingSong = null;
   }
+
+  @tracked currentlyPlayingSong: Song | null = null;
+  @tracked currentlyPlayingPlaylistName: string | null = null;
+
+  playSong(song: Song): void {
+    this.currentlyPlayingSong = song;
+    this.isPlaying = true;
+  }
+
+  setCurrentlyPlayingPlaylist(playlistName: string): void {
+    this.currentlyPlayingPlaylistName = playlistName;
+  }
+
+  playNextSong(): void {
+    if (!this.currentlyPlayingSong || !this.currentlyPlayingPlaylistName) {
+      return;
+    }
+
+    let songs: Song[] = [];
+
+    if (this.currentlyPlayingPlaylistName === 'Library') {
+      songs = this.songs;
+      console.log(
+        'Library songs:',
+        songs.length,
+        'Current song:',
+        this.currentlyPlayingSong.title
+      );
+    } else {
+      const playlist = this.playlists.find(
+        (pl) => pl.name === this.currentlyPlayingPlaylistName
+      );
+      if (!playlist) {
+        return;
+      }
+      songs = playlist.songs;
+    }
+
+    const currentIndex = songs.findIndex(
+      (s) =>
+        s.title === this.currentlyPlayingSong!.title &&
+        s.artist === this.currentlyPlayingSong!.artist
+    );
+    console.log('Current index:', currentIndex, 'Total songs:', songs.length);
+    const nextIndex = (currentIndex + 1) % songs.length;
+    const nextSong = songs[nextIndex];
+    console.log('Next song:', nextSong?.title);
+    if (nextSong) {
+      this.currentlyPlayingSong = nextSong;
+    }
+    this.isPlaying = true;
+  }
+
+  playPreviousSong(): void {
+    if (!this.currentlyPlayingSong || !this.currentlyPlayingPlaylistName) {
+      return;
+    }
+
+    let songs: Song[] = [];
+
+    if (this.currentlyPlayingPlaylistName === 'Library') {
+      songs = this.songs;
+    } else {
+      const playlist = this.playlists.find(
+        (pl) => pl.name === this.currentlyPlayingPlaylistName
+      );
+      if (!playlist) {
+        return;
+      }
+      songs = playlist.songs;
+    }
+
+    const currentIndex = songs.findIndex(
+      (s) =>
+        s.title === this.currentlyPlayingSong!.title &&
+        s.artist === this.currentlyPlayingSong!.artist
+    );
+    const previousIndex = (currentIndex - 1 + songs.length) % songs.length;
+    const previousSong = songs[previousIndex];
+    if (previousSong) {
+      this.currentlyPlayingSong = previousSong;
+    }
+    this.isPlaying = true;
+  }
+
+  @tracked isPlaying: boolean = false;
+
+  pauseSong = () => {
+    if (!this.currentlyPlayingSong) {
+      return;
+    }
+    this.isPlaying = false;
+  };
+
+  playSongAction = () => {
+    if (!this.currentlyPlayingSong) {
+      return;
+    }
+    this.isPlaying = true;
+  };
 }
 
 declare module '@ember/service' {
